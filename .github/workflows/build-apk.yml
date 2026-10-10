@@ -17,10 +17,8 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Grant Execute Permission
-        run: |
-          cd EvilRelayAPK
-          chmod +x gradlew || true
+      - name: Grant Execute Permission to Gradle Wrapper
+        run: chmod +x EvilRelayAPK/gradlew
 
       - name: Build Debug APK
         run: |
