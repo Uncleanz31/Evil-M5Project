@@ -12,21 +12,21 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up JDK 17
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           java-version: '17'
           distribution: 'temurin'
 
       - name: Grant Execute Permission to Gradle Wrapper
-        run: chmod +x EvilRelayAPK/gradlew
+        run: chmod +x EvilRelay/gradlew
 
       - name: Build Debug APK
         run: |
-          cd EvilRelayAPK
+          cd EvilRelay
           ./gradlew assembleDebug
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: EvilRelay-Debug-APK
-          path: EvilRelayAPK/app/build/outputs/apk/debug/*.apk
+          path: EvilRelay/app/build/outputs/apk/debug/*.apk
