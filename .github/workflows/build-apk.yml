@@ -17,15 +17,16 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Install System Gradle
-        run: sudo apt-get update && sudo apt-get install -y gradle
-
-      - name: Generate Compatible Wrapper and Build APK
+      - name: Download and Build with Gradle 8.5
         run: |
           cd EvilRelayAPK
-          gradle wrapper --gradle-version 8.5
-          chmod +x gradlew
-          ./gradlew assembleDebug
+          # Download Gradle 8.5 binary directly
+          wget -q https://services.gradle.org/distributions/gradle-8.5-bin.zip
+          unzip -q gradle-8.5-bin.zip
+          export PATH=$PWD/gradle-8.5/bin:$PATH
+          
+          # Build using the explicit Gradle 8.5 binary
+          gradle assembleDebug
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
