@@ -1,5 +1,6 @@
 name: Build EvilRelay APK
 
+
 on:
   workflow_dispatch:
 
@@ -17,14 +18,14 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Grant Execute Permission & Build APK
-        run: |
-          cd EvilRelayAPK
-          chmod +x gradlew
-          ./gradlew assembleDebug
+      - name: Grant Execute Permission to Gradle Wrapper
+        run: chmod +x gradlew
+
+      - name: Build Debug APK
+        run: ./gradlew :EvilRelayAPK:assembleDebug
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: EvilRelay-Debug-APK
-          path: EvilRelayAPK/app/build/outputs/apk/debug/*.apk
+          path: EvilRelayAPK/build/outputs/apk/debug/*.apk
