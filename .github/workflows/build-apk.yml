@@ -1,6 +1,5 @@
 name: Build EvilRelay APK
 
-
 on:
   workflow_dispatch:
 
@@ -18,11 +17,15 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Grant Execute Permission to Gradle Wrapper
-        run: chmod +x gradlew
+      - name: Install System Gradle
+        run: sudo apt-get update && sudo apt-get install -y gradle
 
-      - name: Build Debug APK
-        run: ./gradlew :EvilRelayAPK:assembleDebug
+      - name: Generate Wrapper and Build APK
+        run: |
+          cd EvilRelayAPK
+          gradle wrapper
+          chmod +x gradlew
+          ./gradlew assembleDebug
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
